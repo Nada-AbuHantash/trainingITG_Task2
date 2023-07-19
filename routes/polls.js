@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router(); 
 
 
-router.post('/new', async (req, res) => {
+router.post('/polls/new', async (req, res) => {
 
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -19,7 +19,7 @@ router.post('/new', async (req, res) => {
       res.send(poll);
 });
 
-router.get('/:id',async(req,res)=>{
+router.get('/polls/:id',async(req,res)=>{
     const poll = await Polls.findById(req.params.id);
 
   if (!poll) return res.status(404).send('The poll with the given ID was not found.');
@@ -28,7 +28,7 @@ router.get('/:id',async(req,res)=>{
 
 });
 
-router.post('/:id',async(req,res)=>{
+router.post('/polls/:id',async(req,res)=>{
     const selectedOption = req.body.option;
     const poll = await Polls.findById(req.params.id);
 
@@ -42,5 +42,29 @@ router.post('/:id',async(req,res)=>{
   res.send(poll);
 
 });
+
+router.get('/',async(req,res)=>{
+  const mostActivePoll = await Polls
+  .find()
+  .sort({ 'options.votes': -1 })
+  .limit(3);
+
+if (!mostActivePoll) return res.status(404).send('The poll with the given ID was not found.');
+
+res.send(mostActivePoll);
+
+});
+
+router.get('/a',async(req,res)=>{
+  const mostActivePoll = await Polls
+  .find()
+  .sort({ createdAt: -1 });
+
+if (!mostActivePoll) return res.status(404).send('The poll with the given ID was not found.');
+
+res.send(mostActivePoll);
+
+});
+
 
 module.exports = router;

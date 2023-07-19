@@ -4,6 +4,7 @@ const error = require('../middleware/error');
 
 module.exports = function (app) {
     app.use(express.json());
-    app.use('/api/polls', polls); 
+    app.use('/', polls); 
+    app.use('/polls', polls); 
     app.use(error);
 }
