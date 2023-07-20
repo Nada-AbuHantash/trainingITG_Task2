@@ -1,0 +1,57 @@
+<!-- index.html (or any other name you prefer) -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create New Poll</title>
+</head>
+<body>
+  <h1>Create New Poll</h1>
+  <form id="createPollForm">
+    <label for="title">Poll Title:</label>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="option1">Option 1:</label>
+    <input type="text" id="option1" name="options" required><br>
+    <label for="option2">Option 2:</label>
+    <input type="text" id="option2" name="options" required><br>
+    <label for="option2">Option 3:</label>
+    <input type="text" id="option3" name="options" required><br>
+    <label for="option2">Option 4:</label>
+    <input type="text" id="option4" name="options" required><br>
+   
+
+    <button type="submit">Create Poll</button>
+  </form>
+
+  <script>
+  
+    const form = document.getElementById('createPollForm');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const options = [...formData.getAll('options')];
+
+      const pollData = {
+        title: formData.get('title'),
+        options: options.map((option) => ({ text: option, votes: 0 })),
+      };
+
+      try {
+        const response = await fetch('/polls/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(pollData),
+        });
+
+        const data = await response.json();
+        console.log(data); 
+      } catch (error) {
+        console.error('Failed to create poll:', error);
+      }
+    });
+  </script>
+</body>
+</html>

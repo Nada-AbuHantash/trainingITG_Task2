@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router(); 
 
-
+router.get('/polls/new', async (req, res) => {
+  res.render('creatPoll');
+});
 router.post('/polls/new', async (req, res) => {
 
     const { error } = validate(req.body);
@@ -16,7 +18,11 @@ router.post('/polls/new', async (req, res) => {
       });
       poll = await poll.save();
       
-      res.send(poll);
+      // res.send(poll);
+      // res.render('creatPoll',poll);
+      // res.render('vote',poll); 
+      res.redirect('/polls/' + poll._id);
+
 });
 
 router.get('/polls/:id',async(req,res)=>{
@@ -24,7 +30,7 @@ router.get('/polls/:id',async(req,res)=>{
 
   if (!poll) return res.status(404).send('The poll with the given ID was not found.');
 
-  res.send(poll);
+ res.render('vote',poll); 
 
 });
 
@@ -44,27 +50,24 @@ router.post('/polls/:id',async(req,res)=>{
 });
 
 router.get('/',async(req,res)=>{
-  const mostActivePoll = await Polls
+  const mostActivePolls = await Polls
   .find()
   .sort({ 'options.votes': -1 })
   .limit(3);
 
-if (!mostActivePoll) return res.status(404).send('The poll with the given ID was not found.');
-
-res.send(mostActivePoll);
-
-});
-
-router.get('/a',async(req,res)=>{
-  const mostActivePoll = await Polls
+  const allPolls = await Polls
   .find()
   .sort({ createdAt: -1 });
 
-if (!mostActivePoll) return res.status(404).send('The poll with the given ID was not found.');
 
-res.send(mostActivePoll);
+if (!mostActivePolls) return res.status(404).send('The poll with the given ID was not found.');
+if (!allPolls) return res.status(404).send('The poll with the given ID was not found.');
+// res.send(mostActivePolls,allPolls);
+res.render('home', { mostActivePolls,allPolls });
 
 });
+
+
 
 
 module.exports = router;

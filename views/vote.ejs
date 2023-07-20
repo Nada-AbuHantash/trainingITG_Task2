@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vote in the Poll</title>
+</head>
+<body>
+  <h1><%= poll.title %></h1>
+  <form action="/polls/<%= poll._id %>" method="post">
+    <% for (let option of poll.options) { %>
+      <label>
+        <input type="radio" name="option" value="<%= option._id %>">
+        <%= option.text %>
+      </label>
+      <br>
+    <% } %>
+    <button type="submit">Vote</button>
+  </form>
+</body>
+</html>
