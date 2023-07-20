@@ -5,15 +5,34 @@
 </head>
 <body>
   <h1><%= poll.title %></h1>
-  <form action="/polls/<%= poll._id %>" method="post">
-    <% for (let option of poll.options) { %>
+  <form action="/polls/<%= poll._id %>" method="post" id="voteForm">
+    <% for (let options of poll.options){ %>
       <label>
-        <input type="radio" name="option" value="<%= option._id %>">
-        <%= option.text %>
+        <input type="radio" name="options" value="<%= options._id %>" id="options_<%= options._id %>">
+        <%= options.text %> -> <%= options.votes %>
       </label>
       <br>
     <% } %>
     <button type="submit">Vote</button>
   </form>
+<h4 style="color: red;" id="error-message"> </h4>
+
+<form  action="/" method="get">
+  <button type="submit">back to home</button>
+
+
+</form>
+  <script>
+    const form = document.getElementById('voteForm');
+  
+    form.addEventListener('submit', (event) => {
+      const selectedOption = form.querySelector('input[name="options"]:checked');
+      if (!selectedOption) {
+        event.preventDefault();
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = 'Please select an option before voting.';
+      }
+    });
+  </script>
 </body>
 </html>

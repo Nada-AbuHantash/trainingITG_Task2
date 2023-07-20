@@ -13,7 +13,7 @@ const PollsSchema = new mongoose.Schema({
       text: {
         type: String,
         required: true,
-        minlength: 3,
+        minlength: 0,
         maxlength: 50
       },
       votes: {
@@ -38,7 +38,7 @@ function validatePolls(poll) {
 
     options: Joi.array().items(
       {
-        text: Joi.string().min(3).max(50).required(),
+        text: Joi.string().min(0).max(50).required(),
         votes: Joi.number().default(0)
       }
     ).min(2).required()

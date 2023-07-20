@@ -1,4 +1,3 @@
-<!-- index.html (or any other name you prefer) -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,49 +7,43 @@
   <h1>Create New Poll</h1>
   <form id="createPollForm">
     <label for="title">Poll Title:</label>
-    <input type="text" id="title" name="title" required><br>
+    <input type="text" id="title" name="title" required minlength="10"><br>
 
     <label for="option1">Option 1:</label>
     <input type="text" id="option1" name="options" required><br>
     <label for="option2">Option 2:</label>
     <input type="text" id="option2" name="options" required><br>
-    <label for="option2">Option 3:</label>
-    <input type="text" id="option3" name="options" required><br>
-    <label for="option2">Option 4:</label>
-    <input type="text" id="option4" name="options" required><br>
-   
+    <label for="option3">Option 3:</label>
+    <input type="text" id="option3" name="options"><br>
+    <label for="option4">Option 4:</label>
+    <input type="text" id="option4" name="options"><br>
 
     <button type="submit">Create Poll</button>
   </form>
 
-  <script>
-  
-    const form = document.getElementById('createPollForm');
 
+  <script>
+    const form = document.getElementById('createPollForm');
+   
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const formData = new FormData(form);
       const options = [...formData.getAll('options')];
+      const EmptyOption = options.filter(option => option.trim() !== '');
 
       const pollData = {
         title: formData.get('title'),
-        options: options.map((option) => ({ text: option, votes: 0 })),
+        options: EmptyOption.map((option) => ({ text: option, votes: 0 })),
       };
+     
+      const response = await fetch('/polls/new', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pollData),
+      });
 
-      try {
-        const response = await fetch('/polls/new', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(pollData),
-        });
-
-        const data = await response.json();
-        console.log(data); 
-      } catch (error) {
-        console.error('Failed to create poll:', error);
-      }
+      const data = await response.json();
+      window.location.href = `/`;
     });
   </script>
 </body>

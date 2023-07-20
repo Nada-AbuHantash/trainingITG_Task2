@@ -12,7 +12,7 @@
   <h1>Three Most Active Polls</h1>
   <ul>
     <% for (let poll of mostActivePolls) { %>
-      <li><%= poll.title %></li>
+      <li ><a href="/polls/<%= poll._id %>"><%= poll.title %></a></li>
        <% for (let options of poll.options) { %>
         <ol> <%=   options.text %> --> <%= options.votes  %>  </ol>  
       <% } %>   
@@ -22,7 +22,7 @@
   <h1>All Polls in Reverse Chronological Order</h1>
   <ul>
     <% for (let poll of allPolls) { %>
-      <li><%= poll.title %></li>
+      <li ><a href="/polls/<%= poll._id %>"><%= poll.title %></a></li>
       <% for (let options of poll.options) { %>
         <ol> <%=   options.text %> --> <%= options.votes  %>  </ol> 
       <% } %> 
