@@ -10,7 +10,7 @@
     <% for (let options of poll.options){ %>
       <label>
         <input type="radio" name="options" value="<%= options._id %>" id="options_<%= options._id %>">
-        <%= options.text %> -> <%= options.votes %>
+        <%= options.text %> 
       </label>
       <br>
     <% } %>
@@ -23,6 +23,7 @@
 
 
 </form>
+
   <script>
     const form = document.getElementById('voteForm');
   

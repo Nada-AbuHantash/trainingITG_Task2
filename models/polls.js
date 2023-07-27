@@ -1,8 +1,10 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+// const JoiArrayExtensions = require('joi-array-extensions');
 
 const PollsSchema = new mongoose.Schema({
   title: {
+    unique: true,
     type: String,
     required: true,
     minlength: 10,
@@ -11,6 +13,7 @@ const PollsSchema = new mongoose.Schema({
   options: {
     type: [{
       text: {
+        unique: true,
         type: String,
         required: true,
         minlength: 0,
@@ -30,7 +33,7 @@ const PollsSchema = new mongoose.Schema({
 
 
 const Polls = mongoose.model('Polls', PollsSchema);
-
+// Joi.extend(JoiArrayExtensions);
 
 function validatePolls(poll) {
   const schema = {

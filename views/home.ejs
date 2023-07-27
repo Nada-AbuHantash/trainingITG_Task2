@@ -16,7 +16,8 @@
       <li ><a href="/polls/<%= poll._id %>"><%= poll.title %></a></li>
        <% for (let options of poll.options) { %>
         <ol> <%=   options.text %> --> <%= options.votes  %>  </ol>  
-      <% } %>   
+      <% } %>  
+      <h6> <%= poll.createdAt %> </h6>
     <% } %>
   </ul>
 
@@ -29,8 +30,6 @@
       <% } %> 
     <% } %>
   </ul>
-
-
 
 </body>
 </html>

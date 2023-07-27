@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="/css/style.css" rel="stylesheet">
+  <title>View Vote </title>
+</head>
+<body>
+   
+   
+  <h1><%= poll.title %></h1>
+  <form action="/polls/<%= poll._id %>" method="post" id="voteForm">
+    <% for (let options of poll.options){ %>
+      <label>
+        <%= options.text %> -> <%= options.votes %>
+      </label>
+      <br>
+    <% } %>
+   
+  </form>
+  <!-- <canvas id="myChart" width="400" height="200"></canvas> -->
+
+<form  action="/" method="get">
+  <button type="submit">back to home</button>
+
+
+</form>
+  <script>
+    
+    const form = document.getElementById('voteForm');
+  
+    form.addEventListener('submit', (event) => {
+      const selectedOption = form.querySelector('input[name="options"]:checked');
+      if (!selectedOption) {
+        event.preventDefault();
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = 'Please select an option before voting.';
+      }
+    });
+</script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+    const votes = [10, 20, 15, 30];
+
+    
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: options,
+        datasets: [{
+          label: 'Votes',
+          data: votes,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

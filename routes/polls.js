@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { Polls, validate } = require('../models/polls');
+const checkUniqueOptins= require('../middleware/uniqueOption');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -9,15 +10,16 @@ let msg = " ";
 router.get('/polls/new', async (req, res) => {
   res.render('creatPoll', { msg });
 });
-router.post('/polls/new', async (req, res) => {
+router.post('/polls/new',checkUniqueOptins,async (req, res) => {
 
   const { error } = validate(req.body);
-  if (error) {
-    msg = error.details[0].message;
-    res.render('creatPoll', { msg })
-  }
+  if (error) return res.status(400).send(error.details[0].message);
 
-  let poll = new Polls({
+  let poll = await Polls.findOne({ title: req.body.title })
+    if (poll) return res.status(400).send('the poll already exite');
+
+    
+   poll = new Polls({
     title: req.body.title,
     options: req.body.options
   });
@@ -48,7 +50,7 @@ router.post('/polls/:id', async (req, res) => {
   option.votes += 1;
   await poll.save();
  
-  res.render('vote', { poll });
+  res.render('viewVote', { poll });
 
 });
 

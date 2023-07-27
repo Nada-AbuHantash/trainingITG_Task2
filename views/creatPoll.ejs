@@ -22,7 +22,7 @@
     <button type="submit">Create Poll</button>
   </form>
 
-
+  <h6 id="error-message"></h6>
   <script>
     const form = document.getElementById('createPollForm');
    
@@ -31,7 +31,14 @@
       const formData = new FormData(form);
       const options = [...formData.getAll('options')];
       const EmptyOption = options.filter(option => option.trim() !== '');
-
+     
+      const uniqueOptions = new Set(EmptyOption);
+      if (uniqueOptions.size !== EmptyOption.length) {
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = 'Options must be unique';
+        return;
+      }
+      
       const pollData = {
         title: formData.get('title'),
         options: EmptyOption.map((option) => ({ text: option, votes: 0 })),
@@ -44,7 +51,7 @@
       });
 
       const data = await response.json();
-      window.location.href = `/`;
+      window.location.href = `/polls/${data._id}`;
     });
   </script>
 </body>
