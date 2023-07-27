@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
   try {
     const decode = jwt.verify(token, config.get('jwtPrivateKey'));
     req.user = decode;
-    //    req.user._id
+   
     next();
   }
   catch (ex) {

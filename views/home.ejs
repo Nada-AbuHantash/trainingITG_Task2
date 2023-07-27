@@ -4,12 +4,18 @@
   <link href="/css/style.css" rel="stylesheet">
   <title>Dashboard</title>
 </head>
-<body>
+<body> 
+   <% if (login) { %>
     <form  action="/polls/new" method="get">
-        <button type="submit">add poll</button>
-    
-    
+        <button type="submit"> add poll</button>
     </form>
+    <% } else { %>
+      <form  action="/users" method="get">
+        <button type="submit"> log in </button>
+    </form>
+    <% } %>
+
+
   <h1>Three Most Active Polls</h1>
   <ul>
     <% for (let poll of mostActivePolls) { %>

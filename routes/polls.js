@@ -1,13 +1,13 @@
 const Joi = require('joi');
 const { Polls, validate } = require('../models/polls');
 const checkUniqueOptins= require('../middleware/uniqueOption');
-const mongoose = require('mongoose');
+const auth= require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 
 let msg = " ";
 
-router.get('/polls/new', async (req, res) => {
+router.get('/polls/new',async (req, res) => {
   res.render('creatPoll', { msg });
 });
 router.post('/polls/new',checkUniqueOptins,async (req, res) => {
@@ -54,7 +54,9 @@ router.post('/polls/:id', async (req, res) => {
 
 });
 
-router.get('/', async (req, res) => {
+router.get('/',  async (req, res) => {
+ var login=false;
+ if(req.session.auth)login=true;
   const mostActivePolls = await Polls
     .find()
     .sort({ 'options.votes': -1 })
@@ -68,7 +70,7 @@ router.get('/', async (req, res) => {
   if (!mostActivePolls) return res.status(404).send('The poll with the given ID was not found.');
   if (!allPolls) return res.status(404).send('The poll with the given ID was not found.');
 
-  res.render('home', { mostActivePolls, allPolls });
+  res.render('home', { mostActivePolls, allPolls,login });
 
 });
 
