@@ -5,24 +5,35 @@
   <title>Create New Poll</title>
 </head>
 <body>
-  <h1>Create New Poll</h1>
+  <h1>Voting Dojo</h1>
+  <div class="back">
+  <form class="backtohome" action="/" method="get">
+    <button type="submit">back to home</button>
+  </form>
+  </div>
+
   <form id="createPollForm">
-    <label for="title">Poll Title:</label>
-    <input type="text" id="title" name="title" required minlength="10"><br>
-
-    <label for="option1">Option 1:</label>
+    <label for="title" class="title">Poll Title:</label>
+    <textarea id="title" name="title" required minlength="10"> </textarea><br>
+    
+ 
+<div class="options">
+    <label for="option1"  id="option1">Option 1:</label>
     <input type="text" id="option1" name="options" required><br>
-    <label for="option2">Option 2:</label>
+    <label for="option2"  id="option2">Option 2:</label>
     <input type="text" id="option2" name="options" required><br>
-    <label for="option3">Option 3:</label>
+    <label for="option3"  id="option3">Option 3:</label>
     <input type="text" id="option3" name="options"><br>
-    <label for="option4">Option 4:</label>
+    <label for="option4"  id="option4">Option 4:</label>
     <input type="text" id="option4" name="options"><br>
-
+  </div>
+  <div class="creat">
     <button type="submit">Create Poll</button>
+    <h4 style="color: red;" id="error-message" class="error"></h4>
+  </div>
   </form>
 
-  <h6 id="error-message"></h6>
+
   <script>
     const form = document.getElementById('createPollForm');
    

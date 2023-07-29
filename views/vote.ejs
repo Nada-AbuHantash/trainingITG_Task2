@@ -5,7 +5,14 @@
   <title>Vote in the Poll</title>
 </head>
 <body>
-  <h1><%= poll.title %></h1>
+  <h1>Voting Dojo</h1>
+  <div class="back">
+    <form class="backtohome" action="/" method="get">
+      <button type="submit">back to home</button>
+    </form>
+    </div>
+  <div class="newpoll">
+  <h2><%= poll.title %> ?</h2>
   <form action="/polls/<%= poll._id %>" method="post" id="voteForm">
     <% for (let options of poll.options){ %>
       <label>
@@ -18,12 +25,7 @@
   </form>
 <h4 style="color: red;" id="error-message"> </h4>
 
-<form  action="/" method="get">
-  <button type="submit">back to home</button>
-
-
-</form>
-
+</div>
   <script>
     const form = document.getElementById('voteForm');
   

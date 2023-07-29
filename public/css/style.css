@@ -8,23 +8,112 @@ h1 {
   background-color: #333;
   color: #fff;
   padding: 10px;
+  margin: 0%;
   text-align: center;
 }
-form {
+h2{
+  padding-left: 20px;
+}
+.active {
   max-width: 400px;
-  margin: 20px auto;
+  margin-left: 350px ;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #cccc;
+}
+.poll{
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+ margin: 1px 50px 5px 5px;
+ padding:10px;
+ background-color: white;
+}
+.login-form{
+  max-width: 450px;
+  margin: 100px auto;
   padding: 20px;
+  align-content: center;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-label {
-  display: block;
-  margin-bottom: 10px;
+
+.time{
+color: rgb(164, 120, 208);
+font-size: smaller;
+}
+.all {
+  position:absolute; 
+  z-index:1000; 
+  left:50px; 
+  top:120px;
+  max-width: 400px;
+  margin-left: 800px ;
+  margin-top: 0px;
+  padding: 10px;
+  height: 500px;
+  background-color: #cccc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-x: hidden;
+				overflow-y: auto;
+				text-align:justify;
+}
+.options {
+  position:absolute; 
+  z-index:1000; 
+  left:50px; 
+  top:120px;
+  max-width: 800px;
+  margin-left: 700px ;
+  margin-top: 0px;
+  padding: 10px;
+  height: 540px;
+  width: 500px;
+  border-radius: 5px;
+
+}
+#option1{
+  margin-top: 15px;
+ height: 30px;
+}
+#option2{
+  margin-top: 15px;
+  height: 30px;
+}
+#option3{
+  margin-top: 15px;
+ height: 30px;
+}
+#option4{
+  margin-top: 15px;
+  height: 30px;
+}
+
+textarea{
+  width: 400px;
+  height: 200px;
+  padding: 20px;
+  margin-left: 70px;
+  margin-top: 20px;
+}
+.title{
+margin-top: 40px;
+  margin-left: 70px;
 }
 input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
+  max-width: 400px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -34,9 +123,85 @@ button[type="submit"] {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  width: 200px;
   cursor: pointer;
+  position: static;
+  margin-left: 30%;
+ 
 }
-h6 {
-  color: red;
-  margin-top: 10px;
+.creat{
+position:absolute;
+ margin-top: 165px;
+ margin-left: 10px;
+ 
+  
+}
+
+.newpoll{
+  max-width: 400px;
+  max-height: 400px;
+  margin-left: 500px ;
+  margin-top: 50px;
+  padding: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #cccc;
+
+}
+
+.vote{
+  margin-left: 50px ;
+  margin-top: 30px;
+}
+tr{
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  width: 10px;
+  cursor: pointer;
+  position: static;
+  margin-left: 10%;
+}
+input[type="radio"] {
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  width: 10px;
+  cursor: pointer;
+  position: static;
+  margin-left: 10%;
+ 
+}
+
+.loginOrNewpoll {
+  
+  max-width: 200px;
+  margin-bottom: 5px  ;
+  margin-top: 5px;
+  margin-left:990px;
+ 
+}
+.back{
+  max-width: 20px;
+  margin-bottom: 5px  ;
+  margin-top: 5px;
+  margin-left: 1075px;
+}
+
+a:hover {
+  color: hotpink;
+}
+a:visited {
+  color: black;
+}
+a:link {
+  color: black;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+.error{
+  margin-left: 72px;
 }
