@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="/css/style.css" rel="stylesheet">
   <title>View Vote </title>
 </head>
+
 <body>
-   
+
   <h1>Voting Dojo</h1>
   <div class="back">
     <form class="backtohome" action="/" method="get">
       <button type="submit">back to home</button>
     </form>
-    </div>
-    <div class="newpoll">
-  <h2><%= poll.title %> ?</h2>
+  </div>
+  <div class="newpoll">
+    <h2>
+      <%= poll.title %> ?
+    </h2>
     <form action="/polls/<%= poll._id %>" method="post" id="voteForm">
-    <% for (let options of poll.options){ %>
-      <label>
-        <%= options.text %> -> <%= options.votes %>
-      </label>
-      <br>
-    <% } %>
-   
-  </form>
-  <!-- <canvas id="myChart" width="400" height="200"></canvas> -->
+      <% for (let options of poll.options){ %>
+        <label>
+          <%= options.text %> -> <%= options.votes %>
+        </label>
+        <br>
+        <% } %>
+
+    </form>
+    <canvas id="myChart" width="400" height="200"></canvas>
 
 
-</div>
- 
+  </div>
 
-    <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    
-    const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
-    const votes = [10, 20, 15, 30];
 
-    
+  <script>
+    const form = document.getElementById('voteForm');
+    const text = [];
+    const vote = [];
+
+    form.querySelectorAll('label').forEach((label) => {
+      const [texts, votes] = label.innerText.split(' -> ');
+      text.push(texts.trim());
+      vote.push(parseInt(votes));
+    });
+
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: options,
+        labels: text,
         datasets: [{
           label: 'Votes',
-          data: votes,
+          data: vote,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1
@@ -58,8 +66,9 @@
         }
       }
     });
-  });
-</script>
+
+  </script>
 
 </body>
+
 </html>
